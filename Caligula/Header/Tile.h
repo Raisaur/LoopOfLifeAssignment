@@ -1,17 +1,20 @@
-#pragma once
+#ifndef TILE_H
+#define TILE_H
 #include <vector>
 
-#include "Vector2.h"
 #include "Sprite.h"
 
-#include "Grass.h"
-#include "Sheep.h"
-#include "Wolf.h"
+#endif // !TILE_H
 
+class Grass;
+class Sheep;
+class Wolf;
 
 struct Tile {
-	Tile(int x, int y, int w, int h, const char* filepath);
+	Tile(int x, int y, int w, int h, const char* filepath, int index);
 	void Render(SDL_Renderer* renderer);
+
+	int tileIndex_;
 
 	SDL_Rect rect_;
 

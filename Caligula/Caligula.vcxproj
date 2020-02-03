@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Header\Grass.cpp" />
     <ClCompile Include="Source\Grid.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\Collider.cpp" />

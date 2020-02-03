@@ -56,7 +56,7 @@ int main(int ac, char** av)
 		Service<SoundHandler>::Set(&soundHandler);
 
 		FSM stateMachine;
-		TEST_STATE_1 stateOne(*renderer);
+		TEST_STATE_1 stateOne(renderer);
 		TEST_STATE_2 stateTwo(*renderer);
 		stateMachine.AddState(&stateOne);
 		stateMachine.AddState(&stateTwo);

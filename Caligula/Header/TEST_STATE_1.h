@@ -16,7 +16,7 @@ class TEST_STATE_1 : public State
 	Sound* m_sound;
 	int m_timer;
 public:
-	TEST_STATE_1(SDL_Renderer& p_renderer); 
+	TEST_STATE_1(SDL_Renderer* p_renderer); 
 	void Enter();
 	bool Update();
 	void Exit();
