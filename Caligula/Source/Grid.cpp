@@ -4,9 +4,7 @@
 #include "SpriteHandler.h"
 #include "Config.h" 
 
-#include "Grass.h"
-
-Grid::Grid(int horizontalTiles, int verticalTiles, const char* dirtTextureFP, int time)
+Grid::Grid(int horizontalTiles, int verticalTiles, const char* dirtTextureFP)
 {
 	horizontalTiles_ = horizontalTiles;
 
@@ -25,14 +23,6 @@ Grid::Grid(int horizontalTiles, int verticalTiles, const char* dirtTextureFP, in
 			tileindex++;
 		}
 	}
-
-	int grassTiles[5];
-	for (int i = 0; i < 5; i++)
-	{
-		int nr = 15 * (i + 1);
-		Grass* newGrass = new Grass("../Assets/grass.png", this, nr, i + 1, time + 50);
-		grass_.push_back(newGrass);
-	}
 }
 
 void Grid::RenderTiles(SDL_Renderer* renderer)
@@ -40,15 +30,6 @@ void Grid::RenderTiles(SDL_Renderer* renderer)
 	for (Tile* tile : tiles_)
 	{
 		tile->Render(renderer);
-	}
-}
-
-void Grid::UpdateGrass(int timer, SDL_Renderer* renderer)
-{
-	for (Grass* grass : grass_)
-	{
-		grass->Act(timer);
-		grass->Render(renderer);
 	}
 }
 

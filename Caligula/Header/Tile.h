@@ -1,12 +1,9 @@
 #ifndef TILE_H
 #define TILE_H
 #include <vector>
-
 #include "Sprite.h"
+#include "Grass.h"
 
-#endif // !TILE_H
-
-class Grass;
 class Sheep;
 class Wolf;
 
@@ -24,3 +21,5 @@ struct Tile {
 	std::vector<Sheep*> sheep_;
 	std::vector<Wolf*> wolves_;
 };
+
+#endif // !TILE_H
