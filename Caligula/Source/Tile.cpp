@@ -21,6 +21,6 @@ void Tile::Render(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, dirtSprite_->GetTexture(), &dirtSprite_->GetArea(), &dst);
 
 
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
-	SDL_RenderDrawRect(renderer, &rect_);
+	//SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
+	//SDL_RenderDrawRect(renderer, &rect_);
 }

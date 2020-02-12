@@ -3,20 +3,15 @@
 #include "State.h"
 #include <array>
 #include <vector>
-#include "Grass.h"
-
-struct SDL_Renderer;
-class Sound;
-class Grid;
-
+#include "SpriteHandler.h"
+#include "Sprite.h"
+#include "EntityManager.h"
 
 class TEST_STATE_1 : public State
 {
-	Grid* grid_;
-	std::vector<Grass*> grass_;
+	EntityManager em_;
 
 	SDL_Renderer* m_renderer;
-	Sound* m_sound;
 
 	float timeLastFrame_;
 	float deltaTime_;
@@ -26,9 +21,7 @@ class TEST_STATE_1 : public State
 	float timeNextAction_;
 
 	void Render(SDL_Renderer* renderer);
-	void GenerateGrass();
 
-	int nrOfActions_;
 public:
 	TEST_STATE_1(SDL_Renderer* p_renderer); 
 	void Enter();

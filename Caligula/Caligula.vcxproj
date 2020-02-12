@@ -145,7 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Header\Grass.cpp" />
+    <ClCompile Include="Header\Sheep.cpp" />
+    <ClCompile Include="Header\Wolf.cpp" />
     <ClCompile Include="Source\Grid.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
@@ -167,6 +170,7 @@
     <ClInclude Include="Header\CollisionHandler.h" />
     <ClInclude Include="Header\Config.h" />
     <ClInclude Include="Header\Entity.h" />
+    <ClInclude Include="Header\EntityManager.h" />
     <ClInclude Include="Header\FSM.h" />
     <ClInclude Include="Header\Grass.h" />
     <ClInclude Include="Header\Grid.h" />

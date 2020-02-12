@@ -33,4 +33,11 @@ void Grid::RenderTiles(SDL_Renderer* renderer)
 	}
 }
 
+int Grid::CurrentTileIndex(Vector2 center)
+{
+	int x = center.x_ / Config::SCREEN_WIDTH;
+	int y = center.y_ / Config::SCREEN_HEIGHT;
+	return(horizontalTiles_ * y + x);
+}
+
 

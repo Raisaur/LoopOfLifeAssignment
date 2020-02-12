@@ -36,7 +36,7 @@ int main(int ac, char** av)
 	if(IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not initialize IMG: %s", IMG_GetError());
 
-	SDL_Window* window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, 0);
+	SDL_Window* window = SDL_CreateWindow("LoopOfLife", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, 0);
 	if(window == nullptr)
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not create SDL_Window: %s", SDL_GetError());
 	

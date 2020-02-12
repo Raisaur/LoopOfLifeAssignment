@@ -1,14 +1,10 @@
 #include "TEST_STATE_1.h"
-#include "Service.h"
-#include "SoundHandler.h"
-#include "CollisionHandler.h"
-#include "InputHandler.h"
-#include "Sound.h"
 #include <iostream>
-#include "Config.h"
-
-#include "Grid.h"
+#include "Service.h"
+#include <ctime>
 #include "Grass.h"
+#include "Sheep.h"
+#include "Wolf.h"
 
 TEST_STATE_1::TEST_STATE_1(SDL_Renderer* p_renderer)
 {
@@ -19,11 +15,16 @@ TEST_STATE_1::TEST_STATE_1(SDL_Renderer* p_renderer)
 void TEST_STATE_1::Enter()
 {
 	std::cout << "TEST_STATE_1::Enter" << std::endl;
+	srand(time(NULL));
+
+	em_.GenerateGrid();
+	em_.PlaceGrass();
+	em_.PlaceSheep();
 
 	timeLastFrame_ = SDL_GetTicks();
-
-	grid_ = new Grid(10, 10, "../Assets/dirt.png");
-	GenerateGrass();
+	timeNextSense_ = SDL_GetTicks();
+	timeNextDecision_ = SDL_GetTicks();
+	timeNextAction_ = SDL_GetTicks();
 }
 
 bool TEST_STATE_1::Update()
@@ -31,45 +32,61 @@ bool TEST_STATE_1::Update()
 	deltaTime_ = SDL_GetTicks() - timeLastFrame_;
 	timeLastFrame_ = SDL_GetTicks();
 
+	std::cout << deltaTime_ << std::endl;
+
 	if (timeNextSense_ - timeLastFrame_ <= deltaTime_)
 	{
 		//std::cout << "Sensing" << std::endl;
-		timeNextSense_ = SDL_GetTicks() + deltaTime_ * 120; //sense every 60 frames
+		timeNextSense_ = SDL_GetTicks() + deltaTime_ * 30; //sense every 60 frames
 
-		for (Grass* grass : grass_)
+		for (int i = 0; i < em_.grass_.size(); i++)
 		{
-			grass->Sense();
+			em_.grass_[i]->Sense();
+		}
+
+		for (int i = 0; i < em_.sheep_.size(); i++)
+		{
+			em_.sheep_[i]->Sense();
 		}
 	}
 
 	if (timeNextDecision_ - timeLastFrame_ <= deltaTime_)
 	{
 		//std::cout << "Deciding" << std::endl;
-		timeNextDecision_ = SDL_GetTicks() + deltaTime_ * 60; //sense every 60 frames
+		timeNextDecision_ = SDL_GetTicks() + deltaTime_ * 15; //decide every 30 frames
 
-		for (Grass* grass : grass_)
+		for (int i = 0; i < em_.grass_.size(); i++)
 		{
-			grass->Decide();
+			em_.grass_[i]->Decide();
+		}
+
+		for (int i = 0; i < em_.sheep_.size(); i++)
+		{
+			em_.sheep_[i]->Decide();
 		}
 	}
 
 	if (timeNextAction_ - timeLastFrame_ <= deltaTime_)
 	{
-		nrOfActions_++;
 		//std::cout << "taking action" << std::endl;
-		timeNextAction_ = SDL_GetTicks() + deltaTime_ * 30; //sense every 60 frames
+		timeNextAction_ = SDL_GetTicks() + deltaTime_ * 1; //act every 1 frames
 
-		for (Grass* grass : grass_)
+		for (int i = 0; i < em_.grass_.size(); i++)
 		{
-			//std::cout << grass->tileIndex_ << std::endl;
-			grass->Act();
+			em_.grass_[i]->Act();
+			
+			if (em_.grass_[i]->isDead_)
+			{
+				em_.grass_.erase(em_.grass_.begin() + i);
+			}
 		}
 
-		/*for (int i = 0; i < grass_.size(); i++)
+		for (int i = 0; i < em_.sheep_.size(); i++)
 		{
-			grass_[i]->Act();
-		}*/
+			em_.sheep_[i]->Act();
+		}
 	}
+	
 
 	Render(m_renderer);
 
@@ -83,31 +100,18 @@ void TEST_STATE_1::Exit()
 
 void TEST_STATE_1::Render(SDL_Renderer* renderer)
 {
-	grid_->RenderTiles(m_renderer);
+	em_.grid_->RenderTiles(m_renderer);
 
-	for (Grass* grass : grass_)
+	for (Grass* grass : em_.grass_)
 	{
 		grass->Render(m_renderer);
 	}
-}
 
-void TEST_STATE_1::GenerateGrass()
-{
-	int grassTiles[10];
-	int tileNr;
-	int startHealth;
-
-	srand(NULL);
-	for (int i = 0; i < 3; i++)
-	{ 
-		tileNr = rand() % 100;
-
-		if (grid_->tiles_[tileNr]->grass_ == nullptr)
-		{
-			startHealth = rand() % 12 + 1;
-			Grass* newGrass = new Grass("../Assets/grass.png", grid_, &grass_, tileNr, i + 1);
-			grass_.push_back(newGrass);
-		}
+	for (Sheep* sheep : em_.sheep_)
+	{
+		sheep->Render(m_renderer);
 	}
 }
+
+
 

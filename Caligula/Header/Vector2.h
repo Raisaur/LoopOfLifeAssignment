@@ -1,3 +1,5 @@
+﻿/* Made by Barış "Peace" Bıçak, used with permission */
+
 #pragma once
 #include <cmath>
 struct Vector2 {
